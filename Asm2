@@ -1,3 +1,5 @@
+
+  
 Sub x()
 'Rember option explicit
 Dim noOfA As Integer
@@ -5,6 +7,7 @@ Dim noOfB As Integer
 Dim noOfC As Integer
 Dim noOfD As Integer
 Dim noOfF As Integer
+Dim noOfStudent As Integer
 
 'Sort Totals in descending order and all related data are updated accordingly.
 Range("A1").Sort Key1:=Range("G1"), Order1:=xlDescending
@@ -24,9 +27,11 @@ Do Until IsEmpty(Range("G" & i + 1))
     i = i + 1
 Loop
 Range("H:H").Font.Bold = True
-Range("H" & i) = "test"
-'c. Display the difference in the "Difference" column.
 
+'c. Display the difference in the "Difference" column.
+Range("H" & i) = "test"
+' -1 becoz of the category
+noOfStudent = i - 1
 '(iii) Create a ?rade?column
 'a. Create a new column right next to the ?ifference?column with the column heading called ?rade?
 Range("I1") = "Grade"
@@ -35,15 +40,47 @@ Dim j As Integer
 j = 2
 noOfF = 0
 'Determining F grade
-If Range("H" & i - 1) > 0.15 Then
+If Range("H" & i - 1) > 15 Then
     Range("I" & i) = "F"
     noOfF = noOfF + 1
 End If
 
-If Range("H" & i - 2) > 0.15 Then
+If Range("H" & i - 2) > 15 Then
     Range("I" & i - 1) = "F"
     noOfF = noOfF + 1
 End If
+
+'Instructor preference(hard coded) (how about fraction?)
+noOfA = noOfStudent * 0.25
+Range("K2") = noOfA
+
+
+
+k = noOfA - 1
+Range("K1") = Application.WorksheetFunction.Max(Range(Range("H" & noOfA - 1), Range("H" & noOfA + 3)))
+
+Do Until Range("H" & k) = Range("K1")
+
+    k = k + 1
+    
+Loop
+Range("K3") = k
+
+noOfA = k - 1
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
 
 Do Until IsEmpty(Range("G" & j + 1))
     'if Range("I"&j)
@@ -54,3 +91,4 @@ Range("J:J").Font.Bold = True
 'c. Show the grades in the ?rade?column
 
 End Sub
+
