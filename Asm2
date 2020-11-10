@@ -1,0 +1,38 @@
+Sub SortDataWithTotal()
+
+'Sort Totals in descending order and all related data are updated accordingly.
+Range("A1").Sort Key1:=Range("G1"), Order1:=xlDescending
+
+'moves the original "TA checking" column to the column next to 揋rade?
+Range("H:H").Cut Range("J:J")
+
+'Create a 揇ifference?column
+'a. Create a new column right next to the 揟otal?column with the column heading 揇ifference?
+Range("H1") = "Difference"
+'b. Calculate the differences of the total scores (in 揟otal?column). The difference score of a student (in row 2) is the difference between the total score of the student and the total score of the student in row 3, i.e., H2-H3.
+Dim i As Integer
+i = 2
+'How about the last cell?
+Do Until IsEmpty(Range("G" & i + 1))
+    Range("H" & i) = Range("G" & i) - Range("G" & i + 1)
+    i = i + 1
+Loop
+Range("H:H").Font.Bold = True
+'c. Display the difference in the "Difference" column.
+
+'(iii) Create a 揋rade?column
+'a. Create a new column right next to the 揇ifference?column with the column heading called 揋rade?
+Range("J1") = "Grade"
+'b. Generate different grades and sub-grades according to guidelines and rules stated under 揌ow to generate letter grades? by default, the grading will be based on Instructor抯 preferences.
+Dim j As Integer
+j = 2
+'How about the last cell?
+Do Until IsEmpty(Range("G" & j + 1))
+    Range("H" & j) = Range("G" & j) - Range("G" & i + 1)
+    j = j + 1
+Loop
+Range("J:J").Font.Bold = True
+'c. Show the grades in the 揋rade?column
+
+End Sub
+
