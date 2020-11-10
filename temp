@@ -1,0 +1,97 @@
+
+  
+Sub x()
+'Rember option explicit
+Dim noOfA As Double
+Dim noOfB As Integer
+Dim noOfC As Integer
+Dim noOfD As Integer
+Dim noOfF As Integer
+Dim noOfStudent As Integer
+
+'Sort Totals in descending order and all related data are updated accordingly.
+Range("A1").Sort Key1:=Range("G1"), Order1:=xlDescending
+
+'moves the original "TA checking" column to the column next to ?rade?
+Range("H:H").Cut Range("J:J")
+
+'Create a ?ifference?column
+'a. Create a new column right next to the ?otal?column with the column heading ?ifference?
+Range("H1") = "Difference"
+'b. Calculate the differences of the total scores (in ?otal?column). The difference score of a student (in row 2) is the difference between the total score of the student and the total score of the student in row 3, i.e., H2-H3.
+Dim i As Integer
+i = 2
+
+Do Until IsEmpty(Range("G" & i + 1))
+    Range("H" & i) = Range("G" & i) - Range("G" & i + 1)
+    i = i + 1
+Loop
+Range("H:H").Font.Bold = True
+
+'c. Display the difference in the "Difference" column.
+Range("H" & i) = "test"
+' -1 becoz of the category
+noOfStudent = i - 1
+'(iii) Create a ?rade?column
+'a. Create a new column right next to the ?ifference?column with the column heading called ?rade?
+Range("I1") = "Grade"
+'b. Generate different grades and sub-grades according to guidelines and rules stated under ?ow to generate letter grades? by default, the grading will be based on Instructor? preferences.
+Dim j As Integer
+j = 2
+noOfF = 0
+'Determining F grade
+If Range("H" & i - 1) > 15 Then
+    Range("I" & i) = "F"
+    noOfF = noOfF + 1
+End If
+
+If Range("H" & i - 2) > 15 Then
+    Range("I" & i - 1) = "F"
+    noOfF = noOfF + 1
+End If
+
+'Instructor preference(hard coded) (how about fraction?)
+noOfA = noOfStudent * 0.25
+
+Range("K2") = CInt(noOfA)
+
+
+'yet declare K
+k = CInt(noOfA) - 1
+Range("K1") = Application.WorksheetFunction.Max(Range(Range("H" & CInt(noOfA) - 1), Range("H" & CInt(noOfA) + 3)))
+
+Do Until Range("H" & k) = Range("K1")
+
+    k = k + 1
+    
+Loop
+Range("K3") = k
+
+'Round(noOfA, 0) = k - 1
+
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+Do Until IsEmpty(Range("G" & j + 1))
+    'if Range("I"&j)
+    Range("I" & j) = Range("G" & j) - Range("G" & i + 1)
+    j = j + 1
+Loop
+Range("J:J").Font.Bold = True
+'c. Show the grades in the ?rade?column
+
+End Sub
+
