@@ -1,0 +1,121 @@
+
+  
+Sub x()
+'Rember option explicit
+Dim noOfA As Integer
+Dim noOfB As Integer
+Dim noOfC As Integer
+Dim noOfD As Integer
+Dim noOfF As Integer
+Dim noOfStudent As Integer
+
+'Sort Totals in descending order and all related data are updated accordingly.
+Range("A1").Sort Key1:=Range("G1"), Order1:=xlDescending
+
+'moves the original "TA checking" column to the column next to ?rade?
+Range("H:H").Cut Range("J:J")
+
+'Create a ?ifference?column
+'a. Create a new column right next to the ?otal?column with the column heading ?ifference?
+Range("H1") = "Difference"
+'b. Calculate the differences of the total scores (in ?otal?column). The difference score of a student (in row 2) is the difference between the total score of the student and the total score of the student in row 3, i.e., H2-H3.
+Dim i As Integer
+i = 2
+
+Do Until IsEmpty(Range("G" & i + 1))
+    Range("H" & i) = Range("G" & i) - Range("G" & i + 1)
+    i = i + 1
+Loop
+Range("H:H").Font.Bold = True
+
+'c. Display the difference in the "Difference" column.
+Range("H" & i) = "test"
+' -1 becoz of the category
+noOfStudent = i - 1
+'(iii) Create a ?rade?column
+'a. Create a new column right next to the ?ifference?column with the column heading called ?rade?
+Range("I1") = "Grade"
+'b. Generate different grades and sub-grades according to guidelines and rules stated under ?ow to generate letter grades? by default, the grading will be based on Instructor? preferences.
+Dim j As Integer
+j = 2
+noOfF = 0
+'Determining F grade
+If Range("H" & i - 1) > 15 Then
+    Range("I" & i) = "F"
+    noOfF = noOfF + 1
+End If
+
+If Range("H" & i - 2) > 15 Then
+    Range("I" & i - 1) = "F"
+    noOfF = noOfF + 1
+End If
+
+Range("P4") = noOfF
+
+
+'Instructor preference(hard coded) (how about fraction?)
+'A range
+noOfA = noOfStudent * 0.25
+
+Range("L2") = noOfA
+
+'yet declare
+lowerlimitofa = noOfA + 3
+upperlimitofa = noOfA - 1
+
+
+Do Until Range("H" & upperlimitofa) = Application.WorksheetFunction.Max(Range(Range("H" & lowerlimitofa), Range("H" & upperlimitofa)))
+
+    upperlimitofa = upperlimitofa + 1
+    
+Loop
+
+Range("L3") = upperlimitofa
+Range("L4") = upperlimitofa - 1
+
+'B range
+noOfB = noOfStudent * 0.32 + Range("L4")
+
+Range("M2") = noOfB
+
+'yet declare
+lowerlimitofb = noOfB + 3
+upperlimitofb = noOfB - 1
+
+
+Do Until Range("H" & upperlimitofb) = Application.WorksheetFunction.Max(Range(Range("H" & lowerlimitofb), Range("H" & upperlimitofb)))
+
+    upperlimitofb = upperlimitofb + 1
+    
+Loop
+
+Range("M3") = upperlimitofb
+Range("M4") = upperlimitofb - 1
+
+'C range
+noOfC = noOfStudent * 0.34 + Range("M4")
+
+Range("N2") = noOfC
+
+'yet declare
+lowerlimitofc = noOfC + 3
+upperlimitofc = noOfC - 1
+
+
+Do Until Range("H" & upperlimitofc) = Application.WorksheetFunction.Max(Range(Range("H" & lowerlimitofc), Range("H" & upperlimitofc)))
+
+    upperlimitofc = upperlimitofc + 1
+    
+Loop
+
+Range("N3") = upperlimitofc
+Range("N4") = upperlimitofc - 1
+
+'D range
+Range("O4") = noOfStudent - noOfF - noOfC
+
+
+
+
+End Sub
+
