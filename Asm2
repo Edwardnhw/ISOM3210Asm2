@@ -1,38 +1,56 @@
-Sub SortDataWithTotal()
+Sub x()
+'Rember option explicit
+Dim noOfA As Integer
+Dim noOfB As Integer
+Dim noOfC As Integer
+Dim noOfD As Integer
+Dim noOfF As Integer
 
 'Sort Totals in descending order and all related data are updated accordingly.
 Range("A1").Sort Key1:=Range("G1"), Order1:=xlDescending
 
-'moves the original "TA checking" column to the column next to 揋rade?
+'moves the original "TA checking" column to the column next to ?rade?
 Range("H:H").Cut Range("J:J")
 
-'Create a 揇ifference?column
-'a. Create a new column right next to the 揟otal?column with the column heading 揇ifference?
+'Create a ?ifference?column
+'a. Create a new column right next to the ?otal?column with the column heading ?ifference?
 Range("H1") = "Difference"
-'b. Calculate the differences of the total scores (in 揟otal?column). The difference score of a student (in row 2) is the difference between the total score of the student and the total score of the student in row 3, i.e., H2-H3.
+'b. Calculate the differences of the total scores (in ?otal?column). The difference score of a student (in row 2) is the difference between the total score of the student and the total score of the student in row 3, i.e., H2-H3.
 Dim i As Integer
 i = 2
-'How about the last cell?
+
 Do Until IsEmpty(Range("G" & i + 1))
     Range("H" & i) = Range("G" & i) - Range("G" & i + 1)
     i = i + 1
 Loop
 Range("H:H").Font.Bold = True
+Range("H" & i) = "test"
 'c. Display the difference in the "Difference" column.
 
-'(iii) Create a 揋rade?column
-'a. Create a new column right next to the 揇ifference?column with the column heading called 揋rade?
-Range("J1") = "Grade"
-'b. Generate different grades and sub-grades according to guidelines and rules stated under 揌ow to generate letter grades? by default, the grading will be based on Instructor抯 preferences.
+'(iii) Create a ?rade?column
+'a. Create a new column right next to the ?ifference?column with the column heading called ?rade?
+Range("I1") = "Grade"
+'b. Generate different grades and sub-grades according to guidelines and rules stated under ?ow to generate letter grades? by default, the grading will be based on Instructor? preferences.
 Dim j As Integer
 j = 2
-'How about the last cell?
+noOfF = 0
+'Determining F grade
+If Range("H" & i - 1) > 0.15 Then
+    Range("I" & i) = "F"
+    noOfF = noOfF + 1
+End If
+
+If Range("H" & i - 2) > 0.15 Then
+    Range("I" & i - 1) = "F"
+    noOfF = noOfF + 1
+End If
+
 Do Until IsEmpty(Range("G" & j + 1))
-    Range("H" & j) = Range("G" & j) - Range("G" & i + 1)
+    'if Range("I"&j)
+    Range("I" & j) = Range("G" & j) - Range("G" & i + 1)
     j = j + 1
 Loop
 Range("J:J").Font.Bold = True
-'c. Show the grades in the 揋rade?column
+'c. Show the grades in the ?rade?column
 
 End Sub
-
