@@ -52,43 +52,22 @@ End If
 
 'Instructor preference(hard coded) (how about fraction?)
 noOfA = noOfStudent * 0.25
-Range("K2") = noOfA
+
+Range("L2") = noOfA
+
+'yet declare
+lowerlimitofa = noOfA + 3
+upperlimitofa = noOfA - 1
 
 
+Do Until Range("H" & upperlimitofa) = Application.WorksheetFunction.Max(Range(Range("H" & lowerlimitofa), Range("H" & upperlimitofa)))
 
-k = noOfA - 1
-Range("K1") = Application.WorksheetFunction.Max(Range(Range("H" & noOfA - 1), Range("H" & noOfA + 3)))
-
-Do Until Range("H" & k) = Range("K1")
-
-    k = k + 1
+    upperlimitofa = upperlimitofa + 1
     
 Loop
-Range("K3") = k
 
-noOfA = k - 1
+Range("L3") = upperlimitofa
 
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-Do Until IsEmpty(Range("G" & j + 1))
-    'if Range("I"&j)
-    Range("I" & j) = Range("G" & j) - Range("G" & i + 1)
-    j = j + 1
-Loop
-Range("J:J").Font.Bold = True
-'c. Show the grades in the ?rade?column
 
 End Sub
 
